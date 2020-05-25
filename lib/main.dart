@@ -27,10 +27,20 @@ class _MyAppState extends State<MyApp>{
   Widget build(BuildContext context){
     
   
-   var questions = [
-     "What's your favourite colour?",
-     "What's your favourite animal?",
-    ];
+   const questions = [
+     {
+       'questionText': "What's your favourite colour?",
+       'answers': ['Black', 'Red', 'Green', 'White']
+     },
+     {
+       'questionText': "What's your favourite animal?",
+       'answers': ['Rabbit', 'Snake', 'Lion', 'Elephant']
+     },
+     {
+       'questionText': "Who's your favourite instructor?",
+       'answers': ['Max', 'Colt', 'Andrei', 'Ed']
+     }
+ ];
 
 
     return 
@@ -39,12 +49,11 @@ class _MyAppState extends State<MyApp>{
         title: Text("Personality App"),
         ),
         body: Column(children: [
-          Question(questions[_questionIndex]),
-         Answer(_answerQuestion),
-         Answer(_answerQuestion),
-         Answer(_answerQuestion),
-         
-          ],),
+          Question(questions[_questionIndex]['questionText']),
+         ...(questions[_questionIndex]['answers'] as List).map((answer) {
+           return Answer(_answerQuestion, answer);
+         }).toList()
+     ],),
         ),
         )
     ;}
